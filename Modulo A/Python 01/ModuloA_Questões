@@ -1,0 +1,332 @@
+#Questão 01: Caixa de atacado
+
+print('+-----------------------+')
+print('| Loja do Douglas Cobre |')
+print('+-----------------------+')
+
+#Criação das variáveis iniciais
+preco = float(input('| Valor do produto: ')) #Entrada de dados do preço
+qtd = int(input('| Quantidade do produto: '))#Entrada de dados da quantidade
+valor = preco*qtd
+desc = 0
+
+#Chegagem das condições de desconto
+if(valor < 2500 ):
+    desc = 0
+elif(valor >= 2500 and valor <6000):
+    desc = 4
+elif(valor >= 6000 and valor <10000):
+    desc = 7
+else:
+    desc = 11
+
+#Calculo dos descontos e criação da variável de desconto
+valor_desconto = valor*(desc/100)
+total = valor-valor_desconto
+
+#Saída dos resultados com valores à pagar
+#A linha pontilhada serve apenas para uma melhor organização e visualização dass informações
+print('+------------------------------+')
+print(f'| Valor SEM desconto: {valor:.2f}')
+print('+------------------------------+')
+print(f'| Valor COM desconto: {total:.2f}')  
+print('+------------------------------+')
+
+#--------------------------------------------#
+#Questão 02
+
+#Verifica o sabor
+def valida_sabor(pergunta , op1 , op2):
+    print('+---------------------+')
+    s = input(pergunta)
+    while True:
+        if(s == op1):
+            break#Exigência de código 7
+        elif(s == op2):
+            break
+        else:
+            print('Opção inválida')#Exigência de código 2
+            print()
+            s = input(pergunta)
+            continue
+    return s
+
+#Verifica o tamanho
+def valida_tamanho(pergunta , op1 , op2 , op3):
+    t = input(pergunta)
+    while True:
+        if(t == op1):
+            break
+        elif(t == op2):
+            break
+        elif(t == op3):
+            break
+        else:
+            print('Opção inválida')#Exigência de código 3
+            print()
+            t = input(pergunta)
+            continue
+    return t
+
+#Verifica as opções do cliente e calcula o valor a ser pago
+def menu_caixa():
+    acumulador = 0 #Exigência de código 5
+    res = 'S'
+    while (res == 'S'):
+        sabor = valida_sabor('Escolha o sabor(CP/AC): ' , 'CP' , 'AC')
+        print(f'Sabor selecionado: {sabor}')
+        tamanho = valida_tamanho('Escolha o tamanho (P/M/G): ' , 'P' , 'M' , 'G')
+        print(f'Tamanho selecionado: {tamanho}')
+        if(sabor == 'CP'):#Exigência de código 4
+            if(tamanho == 'P'):
+                acumulador += 9.00
+            elif(tamanho == 'M'):
+                acumulador += 14.00
+            elif(tamanho == 'G'):
+                acumulador += 18.00
+        elif(sabor == 'AC'):
+            if(tamanho == 'P'):
+                acumulador += 11.00
+            elif(tamanho == 'M'):
+                acumulador += 16.00
+            elif(tamanho == 'G'):
+                acumulador += 20.00
+        print('+----------------------------------+')
+        res = input('Deseja pedir mais alguma coisa?(S/N)')
+        if (res == 'N'):#Exigência de código 6
+            print(f'Total a pagar: R${acumulador}')
+            break
+        elif(res =='S'):
+            continue
+        else:
+            while True:
+                print('Opção inválida, tente novamente')
+                res = input('Deseja pedir mais alguma coisa?(S/N)')
+                if (res == 'N'):#Exigência de código 6
+                    print(f'Total a pagar: R${acumulador}')
+                    break
+                elif(res =='S'):
+                    continue
+            
+    
+#Menu de boas-vindas
+print('Bem-vindo a loja de Gelados do Douglas Cobre')#Exigência de código 1
+print('------------------Cardápio------------------')
+print('--------------------------------------------')
+print('---| Tamanho | Cupuaçu (CP) | Açaí (AC) |---')
+print('---|    P    |   R$  9,00   | R$ 11.00  |---')
+print('---|    M    |   R$ 14,00   | R$ 16.00  |---')
+print('---|    G    |   R$ 18,00   | R$ 20.00  |---')
+print('--------------------------------------------')
+print('OBS: Use letras maiúsculas')
+print()
+
+#Todo o programa ocorrerá por meio das funções. A função menu_caixa chamará as funões de verificação e calculará os valores a pagar.
+menu_caixa()
+
+#----------------------------------------------------------------#
+#Questão 03: Copiadora
+
+#Procedimentos
+def escolha_servico():
+    while True:
+        print('Entre com o tipo de serviço desejado')
+        print('DIG - Digitalização')
+        print('ICO - Impressão colorida')
+        print('IPB - Impressão em preto e branco')
+        print('FOT - Fotocópia')
+        op = input('>>')
+        if (op == 'dig'):
+            custo = 1.10
+            return custo
+        elif(op == 'ico'):
+            custo = 1
+            return custo
+        elif(op == 'ipb'):
+            custo = 0.40
+            return custo
+        elif(op == 'fot'):
+            custo = 0.20
+            return custo
+        else:
+            print('Opção inválida, entre com o tipo de serviço novamente')
+            print()
+            
+def num_pagina():
+    while True:
+        try:
+            num = int(input('Entra com o número de páginas:'))
+            if (num >20000):
+                print('Não aceitamos tantas páginas de uma vez')
+                print('Entre com o número de páginas novamente')
+                print()
+            elif(num == 0):
+                print('Valor inválido, entre com o número de páginas novamente')
+                print()
+            else:
+                return num
+        except ValueError:
+            print('Valor inválido, entre com o número de páginas novamente')
+            print()
+        
+def servico_extra():
+    while True:
+        print('Deseja adicionar algum serviço?')
+        print('1 - Encadernação simples - R$ 15,00')
+        print('2 - Encadernação capa dura - R$ 40,00')    
+        print('0 - Não desejo mais nada')
+        try:
+            op = int(input('>>')) 
+            if (op == 1):
+                extra = 15
+                return extra
+            elif(op == 2):
+                extra = 40
+                return extra
+            elif(op == 0):
+                extra = 0
+                return extra
+            else:
+                print('Opção inválida, escolha novamnete')
+                print()
+        except ValueError:
+            print('Opção inválida, escolha novamnete')
+            print()   
+
+def desconto(n):
+    if (n >= 20 and n < 200):
+        desc = 15
+        return desc
+    elif(n >= 200 and n < 2000):
+        desc = 20
+        return desc
+    elif(n >= 2000 and n < 20000):
+        desc = 25
+        return desc           
+    
+            
+#Programa principal             
+print('+----------------------------+')
+print('| Copíadora do Douglas Cobre |')
+print('+----------------------------+')
+        
+servico = escolha_servico()
+num = num_pagina()
+extra = servico_extra()
+desc_porcento = desconto(num)
+
+#Cálculos
+total = ((servico*num)+extra) #Valor sem desconto
+descontos = total*desc_porcento #Valor do desconto
+final = total - descontos #Valor a pagar
+print('+-----------------------------------------------------------------------------+')
+print(f' Total: R$ {final:.2f} (Serviço: R${servico:.2} * páginas{num} + R${extra:.2f} desconto: {desc_porcento}%)')
+print('+-----------------------------------------------------------------------------+')
+
+#---------------------------------------------------------------------------------------------#
+#Questão 04: Cadastros
+#Funções
+
+def cadastrar_livro(id):#Exigência de código 3
+    global id_global , indice , lista_livro , livro
+    while True:
+            livro['ID'] = id
+            livro['Nome'] = input('Nome do livro: ')
+            livro['Autor'] = input('Nome do autor: ')
+            livro['Editora'] = input('Nome da editora: ')
+            lista_livro.append(livro.copy())#Exigência de código 7
+            break
+    
+def consultar_livro():#Exigência de código 4
+    global id_global , lista_livro , livro
+    id = 0
+    while True:
+        try:
+            print('1 - Consultar todos os livros')
+            print('2 - Consultar livro por ID')
+            print('3 - Consultar livro por autor')
+            print('4 - Retornar')
+            op = int(input('>>'))
+            if(op == 1):#Consultar todos
+                for livro in lista_livro:
+                    print('+----------+')
+                    for keys , values in livro.items():
+                        print(f'{keys}: {values}')
+                    print('+----------+')
+            elif(op == 2):#Consultar por ID
+                id_consulta = int(input('Digite o ID: '))
+                for livro in lista_livro:
+                    for values in livro.values():
+                        if (id_consulta == values):
+                            print('+----------+')
+                            for chaves , valor in livro.items():
+                                print(f'{chaves}: {valor}')
+                            print('+----------+')     
+            elif(op == 3):#Consultar por autor
+                autor = input('Digite o nome autor: ')
+                for livro in lista_livro:
+                    for values in livro.values():
+                        if (autor == values):
+                            print('+----------+')
+                            for keys , values in livro.items():
+                                print(f'{keys}: {values}')
+                            print('+----------+')
+            elif(op == 4):#Retornar
+                break
+            else:
+                print('+-----------------------------+')
+                print('Opção inválida, tente novamente')
+                print('+-----------------------------+')
+        except ValueError:
+            print('+-----------------------------+')
+            print('Opção inválida, tente novamente')
+            print('+-----------------------------+')
+            
+def remover_livro():#Exigência de código 5
+    delete = int(input('Digite o ID do livro a ser removido: '))
+    delete -= 1
+    del lista_livro[delete]
+    print('+-------------------------+')
+    print('Livro removido com sucesso!')
+    print('+-------------------------+')
+
+
+#Programa principal
+indice = 0
+lista_livro = []
+livro = {}
+id_global = 1
+livro = {}
+print('+---------------------------------------+')
+print('| Bem vindo a livraria do Douglas Cobre |')#Exigência de código 1
+while True:#Exigência de código 6
+    try:
+        print('+---------------------------------------+')
+        print('+------------MENU PRINCIPAL-------------+')
+        print('Escolha a operação desejada')
+        print('1 - Cadastrar livro')
+        print('2 - Consultar livro')
+        print('3 - Remover livro')
+        print('4 - Encerrara programa')
+        escolha = int(input('>>')) 
+        if(escolha == 1):
+            cadastrar_livro(id_global)#Exigência de código 2
+            id_global += 1
+        elif(escolha == 2):
+            consultar_livro()
+        elif(escolha == 3):
+            remover_livro()
+        elif(escolha == 4):
+            print('+--------------------+')
+            print('Encerrando programa...')
+            print('+--------------------+')
+            break
+        else:
+            print('+-----------------------------+')
+            print('Opção inválida, tente novamente') 
+            print('+-----------------------------+')
+    except:#Caso algum erro não previsto ocorra, uma mensagem de alerta irá aparecer
+        print('+-----------------------------+')
+        print('Opção inválida, tente novamente')
+        print('+-----------------------------+')
+
